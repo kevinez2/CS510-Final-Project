@@ -3,7 +3,7 @@ import google.generativeai as palm
 import numpy as np
 
 np.random.seed(0)
-palm.configure(api_key='AIzaSyDgb2t4I4GfTwjMqmPngSDpIMOvjq9H63w')
+palm.configure(api_key='your api key here')
 models = [m for m in palm.list_models() if 'generateText' in m.supported_generation_methods]
 model = models[0].name
 print(model)
