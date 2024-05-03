@@ -6,7 +6,7 @@ import argparse
 import random
 
 def main():
-    palm.configure(api_key="AIzaSyDX1QeBCJxRnQaWBxHzAW2NSIPjZDqxsP4")
+    palm.configure(api_key="")
     models = [m for m in palm.list_models() if 'generateText' in m.supported_generation_methods]
     model = models[0].name
     phrases = []
