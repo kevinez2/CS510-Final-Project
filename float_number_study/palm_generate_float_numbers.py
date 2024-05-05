@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import argparse
 import google.generativeai as palm
 
-
 def load_or_generate_numbers(api_key):
     np.random.seed(0)
     palm.configure(api_key=api_key)
@@ -17,8 +16,8 @@ def load_or_generate_numbers(api_key):
     for i in range(20):
         prompt += str(np.random.rand()) + " "
 
-    #temperatures = [1, 0, 0.2, 0.4, 0.6, 0.8]
-    temperatures=[0.8]
+    temperatures = [1, 0, 0.2, 0.4, 0.6, 0.8]
+    numbers_by_temperature = {}
     for temp in temperatures:
         file_path = f'random_numbers_{temp}.txt'
         if os.path.exists(file_path):
@@ -46,13 +45,19 @@ def load_or_generate_numbers(api_key):
             with open(file_path, 'w') as f:
                 for num in random_numbers:
                     f.write(str(num) + '\n')
+        numbers_by_temperature[temp] = random_numbers
 
+    for temp, numbers in numbers_by_temperature.items():
+        plot_distribution(numbers, temp)
 
-def plot_distribution(random_numbers):
-    # Plot the distribution of the random numbers
-    plt.hist(random_numbers, bins=100)
-    plt.show()
-
+def plot_distribution(random_numbers, temp):
+    plt.figure(figsize=(10, 6))
+    plt.hist(random_numbers, bins=1000, color='blue', alpha=0.7)
+    plt.title(f'Distribution of Random Numbers at Temperature {temp}')
+    plt.xlabel('Value')
+    plt.ylabel('Frequency')
+    plt.savefig(f'random_numbers_distribution_{temp}.png')  # Save the plot as a PNG file
+    plt.close()  # Close the plot to free up memory
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
