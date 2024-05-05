@@ -11,7 +11,7 @@ with open('random_numbers.txt', 'r') as f:
 plt.figure(figsize=(10, 6), dpi=400)  # Larger figure size
 
 # Plot the histogram of the random numbers
-plt.hist(random_numbers, bins=1000, density=True, alpha=1, label='Empirical Data')
+plt.hist(random_numbers, bins=10, density=True, alpha=1, label='Empirical Data')
 
 # Add a theoretical uniform distribution for comparison
 plt.plot([0, 1], [1, 1], 'r-', linewidth=2, label='Uniform Distribution')
